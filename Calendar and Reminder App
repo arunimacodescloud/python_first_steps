@@ -1,0 +1,40 @@
+import calendar
+
+# Memory store using a dictionary of lists to support multiple reminders per date
+reminders = {}
+
+
+def show_calendar(year, month):
+    print("\n" + calendar.month(year, month))
+
+
+def add_reminder(date_str, text):
+    if date_str not in reminders:
+        reminders[date_str] = []
+    reminders[date_str].append(text)
+    print(f"Reminder set for {date_str}!")
+
+
+def view_reminders(date_str=None):
+    # View reminders for a specific date if provided, otherwise show all
+    if date_str:
+        tasks = reminders.get(date_str, [])
+        if not tasks:
+            print(f"No reminders set for {date_str}.")
+        else:
+            print(f"Reminders for {date_str}:")
+            for task in tasks:
+                print(f"  - {task}")
+    else:
+        if not reminders:
+            print("No reminders set.")
+        else:
+            for date, tasks in reminders.items():
+                print(f"- {date}: {', '.join(tasks)}")
+
+
+# Example Usage
+show_calendar(2026, 9)
+add_reminder("2026-09-12", "Submit Internship Project video")
+add_reminder("2026-09-12", "Team Sync Meeting")
+view_reminders()
